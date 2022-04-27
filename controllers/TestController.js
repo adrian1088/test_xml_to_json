@@ -5,7 +5,7 @@ exports.testFunction = async (req, res) => {
 
     let message = "!Ok";
     let results = testConvertXmlToJson();
-
+    testCosumingSOAPservice();
     // let results = {
     //     id: 1,
     //     name: "Jose",
@@ -60,4 +60,36 @@ const testConvertXmlToJson = () => {
   })
   console.log('JSON output', jsonString);
   return jsonString;
+}
+
+const testCosumingSOAPservice = () => {
+  var soap = require('soap');
+  var args = {};
+
+  soap.createClientAsync(process.env.WSDL_URL, { overridePromiseSuffix: 'Promise' }).then((client) => {
+    //TODO: Test #1
+    client.Cargar_Provincias(args, (err, result) => {
+      console.log("err: ", err);
+      //console.log("result: ", result);
+      console.log("Data: ", result.Cargar_ProvinciasResult.ResultadoDT.diffgram.DocumentElement.Data);
+    });
+
+    //TODO: Test #2
+    //client.Cargar_Municipios({ pProvinciaID: '27' }, (err, result, rawResponse, soapHeader, rawRequest) => {
+      // result is a javascript object
+      // rawResponse is the raw xml response string
+      // soapHeader is the response soap header as a javascript object
+      // rawRequest is the raw xml request string
+      //console.log("err: ", err);
+      //console.log("result: ", result);
+      //console.log("rawResponse: ",rawResponse);
+      //console.log("rawRequest: ",rawRequest);
+
+      //console.log("Data: ", result.Cargar_MunicipiosResult.ResultadoDT.diffgram.DocumentElement.Data);
+    //})
+  }).then((result) => {
+    console.log(result);
+  }).catch((err) => {
+    console.log("error: ", err);
+  });
 }
