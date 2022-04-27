@@ -18,6 +18,10 @@
         "express": "^4.17.1",
         "express-validator": "^6.14.0",
         "jsonwebtoken": "^8.5.1",
+        "soap": "^0.43.0",
         "xml2json": "^0.12.0"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.15"
     }
 }
